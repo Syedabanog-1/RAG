@@ -640,7 +640,7 @@ export default function RAGMasterclass() {
                 </div>
 
                 {/* Animated Data Stream */}
-                <div className="absolute bottom-24 left-10 right-10 h-32 z-10 pointer-events-none flex items-end gap-2 px-10">
+                <div className="absolute bottom-10 left-10 right-10 h-32 z-10 pointer-events-none flex items-end gap-2 px-10">
                    {[...Array(30)].map((_, i) => (
                      <motion.div 
                        key={i}
@@ -649,21 +649,6 @@ export default function RAGMasterclass() {
                        className="w-1.5 bg-sky-500/30 rounded-t-sm"
                      />
                    ))}
-                </div>
-
-                {/* CINEMATIC SUBTITLES */}
-                <div className="absolute bottom-10 left-0 w-full flex justify-center z-50 px-20">
-                  <motion.div 
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    key={currentExplanation}
-                    className="bg-black/60 backdrop-blur-xl border border-white/10 px-10 py-6 rounded-3xl max-w-4xl text-center shadow-[0_0_50px_rgba(0,0,0,0.5)]"
-                  >
-                    <p className="text-xl font-black text-sky-400 uppercase tracking-[0.5em] mb-2">{selectedLang.name} SUBTITLES</p>
-                    <p className="text-3xl lg:text-4xl font-bold leading-snug text-white">
-                      {isGenerating ? "Translating..." : currentExplanation || slide.explanation}
-                    </p>
-                  </motion.div>
                 </div>
               </div>
 
