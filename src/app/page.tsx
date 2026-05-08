@@ -465,29 +465,38 @@ export default function RAGMasterclass() {
       </div>
 
       {/* Footer Navigation */}
-      </footer>
+      <footer className="h-40 px-8 lg:px-20 flex items-center justify-between bg-black/60 border-t border-white/10 backdrop-blur-3xl relative z-50">
+        <div className="flex items-center gap-10">
+          <button 
+            onClick={prevSlide}
+            className="w-24 h-24 lg:w-28 lg:h-28 rounded-[2.5rem] border-4 border-white/10 glass flex items-center justify-center hover:bg-sky-600 hover:border-sky-500 transition-all group"
+          >
+            <ChevronLeft className="w-12 h-12 lg:w-16 lg:h-16 group-hover:scale-125 transition-transform" />
+          </button>
+          <button 
+            onClick={nextSlide}
+            className="w-24 h-24 lg:w-28 lg:h-28 rounded-[2.5rem] border-4 border-white/10 glass flex items-center justify-center hover:bg-sky-600 hover:border-sky-500 transition-all group"
+          >
+            <ChevronRight className="w-12 h-12 lg:w-16 lg:h-16 group-hover:scale-125 transition-transform" />
+          </button>
+        </div>
 
-      {/* Slide Preview Strip (Bottom) */}
-      <div className="h-48 lg:h-56 bg-black/80 backdrop-blur-3xl border-t border-white/10 p-6 flex-none overflow-hidden relative z-50">
-        <div className="flex items-center gap-6 overflow-x-auto custom-scrollbar h-full pb-4 px-10">
-          {slides.map((s, idx) => (
-            <motion.button
-              key={idx}
-              whileHover={{ scale: 1.05, y: -5 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => setCurrentSlide(idx)}
-              className={`flex-none w-64 lg:w-80 h-full rounded-2xl overflow-hidden border-2 transition-all relative group ${idx === currentSlide ? 'border-sky-500 shadow-[0_0_20px_rgba(14,165,233,0.4)]' : 'border-white/10 opacity-50 hover:opacity-100'}`}
-            >
-              <img src={s.imageUrl} className="w-full h-full object-cover grayscale-[30%] group-hover:grayscale-0 transition-all" alt={s.title} />
-              <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-all" />
-              <div className="absolute inset-0 p-4 flex flex-col justify-end text-left">
-                <span className="text-sky-400 font-black text-xs uppercase tracking-widest mb-1">Slide 0{idx + 1}</span>
-                <span className="text-white font-bold text-sm lg:text-base line-clamp-1 uppercase leading-none">{s.title}</span>
-              </div>
-            </motion.button>
+        {/* Progress Bar */}
+        <div className="flex items-center gap-6">
+          {slides.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setCurrentSlide(i)}
+              className={`h-4 transition-all duration-700 rounded-full ${i === currentSlide ? 'w-32 lg:w-48 bg-sky-400 shadow-[0_0_20px_rgba(14,165,233,1)]' : 'w-6 bg-white/10 hover:bg-white/40'}`}
+            />
           ))}
         </div>
-      </div>
+
+        <div className="text-right hidden sm:block">
+          <p className="text-2xl font-black text-slate-500 uppercase tracking-[0.4em]">Syeda Gulzar Bano</p>
+          <p className="text-lg text-sky-400 font-bold uppercase tracking-[0.3em] mt-2">RAG Expert 2026</p>
+        </div>
+      </footer>
 
 
       {/* TOPICS OVERVIEW MODAL */}
