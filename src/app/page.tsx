@@ -420,8 +420,7 @@ export default function RAGMasterclass() {
               <div className="flex flex-row items-center justify-center lg:justify-start gap-4 sm:gap-10 pt-4 lg:pt-10">
                 <button 
                   onClick={() => {
-                    setShowMovie(true);
-                    speak(slide, true);
+                    speak(slide, false);
                   }}
                   className={`group flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 lg:w-28 lg:h-28 rounded-2xl sm:rounded-3xl font-black transition-all shadow-xl sm:shadow-3xl ${isSpeaking ? 'bg-rose-600' : 'bg-gradient-to-br from-sky-500 to-blue-700 hover:scale-105 active:scale-95 shadow-sky-600/40'}`}
                   title="Voice Explanation"
