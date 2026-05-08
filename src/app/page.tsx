@@ -116,6 +116,9 @@ export default function RAGMasterclass() {
   const [movieSubtitle, setMovieSubtitle] = useState("");
   const [currentExplanation, setCurrentExplanation] = useState("");
   const [translatedContent, setTranslatedContent] = useState<string[]>([]);
+  const [chatMessages, setChatMessages] = useState<{ role: 'user' | 'assistant', content: string }[]>([]);
+  const [chatInput, setChatInput] = useState("");
+  const [isChatLoading, setIsChatLoading] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -216,11 +219,43 @@ export default function RAGMasterclass() {
     }, 200);
   };
 
+  const handleSendMessage = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!chatInput.trim() || isChatLoading) return;
+
+    const userMsg = { role: 'user' as const, content: chatInput };
+    setChatMessages(prev => [...prev, userMsg]);
+    setChatInput("");
+    setIsChatLoading(true);
+
+    try {
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          question: chatInput,
+          context: currentExplanation || slide.explanation,
+          topic: slide.title,
+          history: chatMessages.slice(-4) // Send last 4 messages for context
+        })
+      });
+      const data = await res.json();
+      if (data.answer) {
+        setChatMessages(prev => [...prev, { role: 'assistant', content: data.answer }]);
+      }
+    } catch (err) {
+      console.error("Chat error:", err);
+    } finally {
+      setIsChatLoading(false);
+    }
+  };
+
   const startMovie = () => {
     setShowMovie(true);
     setCurrentExplanation(""); 
     setMovieSubtitle("");
     setTranslatedContent([]); // Reset translations
+    setChatMessages([]); // Reset chat for new slide
     
     // 2-second cinematic delay before starting narration
     setTimeout(() => {
@@ -600,53 +635,81 @@ export default function RAGMasterclass() {
                 </div>
               </div>
 
-              {/* Right Side: LIVE EXPLANATION SIDEBAR */}
-              <div className="lg:w-1/3 glass-dark backdrop-blur-3xl flex flex-col p-8 sm:p-12 lg:p-20 relative overflow-y-auto min-h-[50vh] lg:min-h-0">
-                <div className="mb-10 lg:mb-20 flex justify-center">
-                   <RobotAvatar isSpeaking={isSpeaking} size="large" />
+               {/* Right Side: LIVE EXPLANATION & CHAT SIDEBAR */}
+              <div className="lg:w-1/3 glass-dark backdrop-blur-3xl flex flex-col relative min-h-[50vh] lg:min-h-0 border-l border-white/10">
+                <div className="p-8 lg:p-12 overflow-y-auto flex-grow space-y-12 custom-scrollbar">
+                  <div className="flex justify-center">
+                    <RobotAvatar isSpeaking={isSpeaking} size="large" />
+                  </div>
+
+                  <div className="space-y-8">
+                    <div className="space-y-4">
+                      <p className="text-sky-500 font-black text-xl uppercase tracking-[0.3em]">Live Explanation</p>
+                      <div className="h-1.5 w-24 bg-sky-500 rounded-full shadow-[0_0_15px_rgba(14,165,233,0.5)]" />
+                    </div>
+
+                    <motion.div 
+                      initial={{ opacity: 0, x: 50 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      key={currentExplanation}
+                      className="relative"
+                    >
+                      <p className="text-xl sm:text-2xl lg:text-3xl font-bold leading-relaxed text-slate-100 italic">
+                        {isGenerating ? "RAG Master-Class is starting..." : currentExplanation || slide.explanation}
+                      </p>
+                    </motion.div>
+                  </div>
+
+                  {/* Chat Messages Area */}
+                  <div className="space-y-6 pt-10 border-t border-white/10">
+                    <p className="text-sky-500 font-black text-xl uppercase tracking-[0.3em]">AI Assistant Chat</p>
+                    <div className="space-y-4">
+                      {chatMessages.length === 0 && (
+                        <p className="text-slate-500 italic text-lg text-center py-4">Ask me anything about {slide.title}...</p>
+                      )}
+                      {chatMessages.map((msg, i) => (
+                        <motion.div 
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          key={i} 
+                          className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
+                        >
+                          <div className={`max-w-[85%] px-6 py-4 rounded-2xl text-lg font-bold shadow-xl ${msg.role === 'user' ? 'bg-sky-600 text-white rounded-tr-none' : 'glass border border-white/10 text-slate-200 rounded-tl-none'}`}>
+                            {msg.content}
+                          </div>
+                        </motion.div>
+                      ))}
+                      {isChatLoading && (
+                        <div className="flex justify-start">
+                          <div className="glass border border-white/10 px-6 py-4 rounded-2xl rounded-tl-none flex gap-2 items-center">
+                            <div className="w-2 h-2 bg-sky-400 rounded-full animate-bounce" />
+                            <div className="w-2 h-2 bg-sky-400 rounded-full animate-bounce [animation-delay:0.2s]" />
+                            <div className="w-2 h-2 bg-sky-400 rounded-full animate-bounce [animation-delay:0.4s]" />
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
                 </div>
 
-                <div className="space-y-8 lg:space-y-12">
-                   <div className="space-y-4">
-                      <p className="text-sky-500 font-black text-xl lg:text-2xl uppercase tracking-[0.3em]">Live Explanation</p>
-                      <div className="h-1.5 w-24 lg:w-32 bg-sky-500 rounded-full shadow-[0_0_15px_rgba(14,165,233,0.5)]" />
-                   </div>
-
-                   <motion.div 
-                     initial={{ opacity: 0, x: 50 }}
-                     animate={{ opacity: 1, x: 0 }}
-                     key={currentExplanation}
-                     className="relative"
-                   >
-                     <p className="text-2xl sm:text-3xl lg:text-5xl font-bold leading-[1.3] text-slate-100 italic">
-                        {isGenerating ? (
-                          selectedLang.code.startsWith('ur') ? "RAG Master-Class shuru ho rahi hai..." :
-                          selectedLang.code.startsWith('hi') ? "RAG Master-Class shuru ho rahi hai..." :
-                          selectedLang.code.startsWith('es') ? "RAG Master-Class comienza ahora..." :
-                          selectedLang.code.startsWith('fr') ? "Le Master-Class RAG commence..." :
-                          "RAG Master-Class is starting..."
-                        ) : currentExplanation || (
-                          selectedLang.code.startsWith('ur') ? "RAG Master-Class shuru ho rahi hai..." :
-                          selectedLang.code.startsWith('hi') ? "RAG Master-Class shuru ho rahi hai..." :
-                          "RAG Master-Class is starting..."
-                        )}
-                     </p>
-                     
-                     {/* Tech Accents - Using Translated Content */}
-                     <div className="mt-12 lg:mt-20 grid grid-cols-1 sm:grid-cols-2 gap-6 lg:gap-8 border-t border-white/10 pt-10">
-                        {(translatedContent.length > 0 ? translatedContent : slides[currentSlide].content).map((item: any, idx) => {
-                          const displayString = typeof item === 'object' && item !== null 
-                            ? (item.translatedPoint || item.point || item.text || item.content || "Processing...") 
-                            : String(item);
-                          return (
-                          <div key={idx} className="flex items-start gap-4 group">
-                             <div className="w-3 h-3 bg-sky-500 rounded-full mt-2 shrink-0 shadow-[0_0_10px_rgba(14,165,233,1)] group-hover:scale-125 transition-transform" />
-                             <span className="text-lg lg:text-xl font-bold text-slate-400 uppercase tracking-tight group-hover:text-white transition-colors">{displayString}</span>
-                          </div>
-                          );
-                        })}
-                     </div>
-                   </motion.div>
+                {/* Chat Input Area */}
+                <div className="p-8 border-t border-white/10 bg-black/40 backdrop-blur-xl">
+                  <form onSubmit={handleSendMessage} className="relative flex items-center gap-4">
+                    <input 
+                      type="text"
+                      value={chatInput}
+                      onChange={(e) => setChatInput(e.target.value)}
+                      placeholder="Ask a question..."
+                      className="w-full bg-white/5 border-2 border-white/10 rounded-2xl px-6 py-5 text-xl font-bold focus:outline-none focus:border-sky-500 transition-all placeholder:text-slate-600"
+                    />
+                    <button 
+                      type="submit"
+                      disabled={isChatLoading || !chatInput.trim()}
+                      className="absolute right-3 p-3 bg-sky-500 rounded-xl hover:scale-105 active:scale-95 transition-all disabled:opacity-50 disabled:scale-100"
+                    >
+                      <Zap className={`w-8 h-8 text-white ${isChatLoading ? 'animate-pulse' : ''}`} />
+                    </button>
+                  </form>
                 </div>
               </div>
             </div>
