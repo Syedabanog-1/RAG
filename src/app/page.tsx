@@ -48,8 +48,8 @@ const RobotAvatar = ({ isSpeaking, size = "small", color = "sky" }: { isSpeaking
       animate={isSpeaking ? { 
         y: [0, -15, 0],
         rotate: [0, 2, -2, 0]
-      } : {}}
-      transition={{ duration: 2, repeat: Infinity }}
+      } : { y: 0, rotate: 0 }}
+      transition={isSpeaking ? { duration: 2, repeat: Infinity } : { duration: 0.3 }}
       className={`${size === "small" ? "w-24 h-24" : "w-48 h-48"} glass rounded-[3rem] relative ${borderColor} overflow-hidden z-10 ${containerShadow}`}
     >
       <div className={`absolute inset-0 bg-gradient-to-b ${bgGradient} to-transparent`} />
@@ -83,8 +83,8 @@ const RobotAvatar = ({ isSpeaking, size = "small", color = "sky" }: { isSpeaking
             height: [4, 12, 4], 
             width: [20, 40, 20],
             backgroundColor: [shadowColor, mouthActiveColor, shadowColor]
-          } : { height: 4, width: 20 }}
-          transition={{ duration: 0.2, repeat: Infinity }}
+          } : { height: 4, width: 20, backgroundColor: shadowColor }}
+          transition={isSpeaking ? { duration: 0.2, repeat: Infinity } : { duration: 0.1 }}
           className={`${bgMouth} rounded-full ${mouthShadow}`}
         />
       </div>
@@ -93,8 +93,8 @@ const RobotAvatar = ({ isSpeaking, size = "small", color = "sky" }: { isSpeaking
     <div className={`${size === "small" ? "w-16 h-20" : "w-32 h-40"} glass rounded-t-none rounded-b-[5rem] -mt-12 ${borderBody} relative overflow-hidden`}>
       <div className="absolute top-12 left-1/2 -translate-x-1/2">
         <motion.div 
-          animate={isSpeaking ? { opacity: [0.4, 1, 0.4], scale: [1, 1.2, 1] } : { opacity: 0.4 }}
-          transition={{ duration: 1, repeat: Infinity }}
+          animate={isSpeaking ? { opacity: [0.4, 1, 0.4], scale: [1, 1.2, 1] } : { opacity: 0.2, scale: 1 }}
+          transition={isSpeaking ? { duration: 1, repeat: Infinity } : { duration: 0.3 }}
           className={`${size === "small" ? "w-8 h-8" : "w-16 h-16"} rounded-full ${bgBlur} blur-xl`} 
         />
       </div>
