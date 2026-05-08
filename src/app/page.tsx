@@ -162,14 +162,12 @@ export default function RAGMasterclass() {
       const data = await res.json();
       if (data.explanation) {
         textToSpeak = data.explanation;
+        setCurrentExplanation(textToSpeak); // Always update text in UI
         if (isMovie) {
           setMovieSubtitle(textToSpeak);
-          setCurrentExplanation(textToSpeak);
           if (data.translatedContent) {
             setTranslatedContent(data.translatedContent);
           }
-        } else {
-          setCurrentExplanation("");
         }
       }
     } catch (e) {
