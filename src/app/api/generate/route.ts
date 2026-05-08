@@ -1,11 +1,11 @@
 import { Groq } from 'groq-sdk';
 import { NextResponse } from 'next/server';
 
-const groq = new Groq({
-  apiKey: process.env.GROQ_API_KEY,
-});
-
 export async function POST(req: Request) {
+  const groq = new Groq({
+    apiKey: process.env.GROQ_API_KEY || 'dummy_key',
+  });
+
   try {
     const { topic, context, language } = await req.json();
 
