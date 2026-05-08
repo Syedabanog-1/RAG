@@ -331,25 +331,25 @@ export default function RAGMasterclass() {
           >
             {/* Left: Text Content */}
             <div className="space-y-12 lg:space-y-20">
-              <div className="space-y-8">
+              <div className="space-y-6 lg:space-y-10">
                 <motion.div 
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="inline-block px-10 py-4 bg-sky-600/20 border-2 border-sky-500/30 rounded-full"
+                  className="inline-block px-8 py-3 lg:px-10 lg:py-4 bg-sky-600/20 border-2 border-sky-500/30 rounded-full"
                 >
-                  <span className="text-sky-400 font-black text-xl lg:text-2xl uppercase tracking-[0.3em]">
+                  <span className="text-sky-400 font-black text-lg lg:text-2xl uppercase tracking-[0.3em]">
                     {slide.subtitle || "Mastering RAG Technology"}
                   </span>
                 </motion.div>
                 
-                <h2 className="text-6xl lg:text-[7.5rem] font-black leading-[0.85] uppercase tracking-tight break-words">
+                <h2 className="text-5xl md:text-6xl lg:text-7xl xl:text-[6.5rem] font-black leading-[1.1] lg:leading-[1] uppercase tracking-tight">
                   {slide.title.split(' ').map((word, i) => (
                     <span key={i} className={i % 2 !== 0 ? "text-sky-400" : ""}>{word} </span>
                   ))}
                 </h2>
               </div>
 
-              <div className="space-y-8 lg:space-y-10">
+              <div className="space-y-6 lg:space-y-8">
                 {slide.content.map((item, i) => (
                   <motion.div 
                     key={i}
