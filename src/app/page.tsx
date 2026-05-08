@@ -59,10 +59,17 @@ const RobotAvatar = ({ isSpeaking, size = "small", color = "sky" }: { isSpeaking
           <motion.div 
             key={i}
             animate={isSpeaking ? { 
-              scaleY: [1, 0.1, 1],
+              scaleY: [1, 1, 0.1, 1, 1], // Improved blink pattern
               boxShadow: [`0 0 10px ${shadowColor}`, `0 0 20px ${shadowColor}`, `0 0 10px ${shadowColor}`]
-            } : {}}
-            transition={{ duration: 0.15, repeat: isSpeaking ? Infinity : 0, repeatDelay: 2.5 }}
+            } : {
+              scaleY: [1, 1, 0.1, 1, 1] // Blink even when not speaking
+            }}
+            transition={{ 
+              duration: 2.5, 
+              repeat: Infinity, 
+              times: [0, 0.8, 0.9, 1, 1], // Precise blink timing
+              repeatDelay: 1 
+            }}
             className={`${size === "small" ? "w-4 h-4" : "w-8 h-8"} bg-white rounded-full flex items-center justify-center`}
           >
             <div className={`${size === "small" ? "w-2 h-2" : "w-4 h-4"} ${bgEye} rounded-full`} />
@@ -241,17 +248,18 @@ export default function RAGMasterclass() {
 
   return (
     <main className="h-screen w-full bg-[#020617] text-white overflow-hidden flex flex-col font-sans selection:bg-sky-500">
-      {/* Background Orbs */}
+      {/* Background Orbs & Grid */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(14,165,233,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(14,165,233,0.03)_1px,transparent_1px)] bg-[size:60px_60px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,#000_70%,transparent_100%)]" />
         <motion.div 
-          animate={{ x: [0, 100, 0], y: [0, 50, 0] }}
-          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-          className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] bg-sky-600/10 blur-[150px] rounded-full" 
+          animate={{ x: [0, 50, 0], y: [0, 30, 0], opacity: [0.1, 0.2, 0.1] }}
+          transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+          className="absolute top-[-10%] left-[-5%] w-[50%] h-[50%] bg-sky-500/20 blur-[120px] rounded-full" 
         />
         <motion.div 
-          animate={{ x: [0, -100, 0], y: [0, -50, 0] }}
-          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-          className="absolute bottom-[-20%] right-[-10%] w-[60%] h-[60%] bg-blue-600/10 blur-[150px] rounded-full" 
+          animate={{ x: [0, -50, 0], y: [0, -30, 0], opacity: [0.1, 0.2, 0.1] }}
+          transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
+          className="absolute bottom-[-10%] right-[-5%] w-[50%] h-[50%] bg-blue-500/20 blur-[120px] rounded-full" 
         />
       </div>
 
