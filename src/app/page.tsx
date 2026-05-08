@@ -655,9 +655,9 @@ export default function RAGMasterclass() {
                   <div className="flex justify-center">
                     <RobotAvatar isSpeaking={isSpeaking} size="small" />
                   </div>
-                  <div className="space-y-3">
-                    <p className="text-sky-500 font-black text-xl uppercase tracking-[0.3em]">Live Explanation</p>
-                    <p className="text-lg sm:text-xl font-bold leading-relaxed text-slate-100">
+                  <div className="space-y-4">
+                    <p className="text-sky-500 font-black text-2xl uppercase tracking-[0.3em]">Live Explanation</p>
+                    <p className="text-2xl sm:text-3xl font-bold leading-relaxed text-slate-100">
                       {isGenerating ? "AI is generating explanation..." : currentExplanation || slide.explanation}
                     </p>
                   </div>
@@ -680,7 +680,7 @@ export default function RAGMasterclass() {
                           key={i} 
                           className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
                         >
-                          <div className={`max-w-[90%] px-6 py-4 rounded-[1.2rem] text-xl lg:text-2xl font-bold shadow-2xl ${msg.role === 'user' ? 'bg-sky-600 text-white rounded-tr-none' : 'glass border-2 border-white/10 text-slate-100 rounded-tl-none'}`}>
+                          <div className={`max-w-[90%] px-8 py-6 rounded-[1.5rem] text-2xl lg:text-3xl font-bold shadow-2xl ${msg.role === 'user' ? 'bg-sky-600 text-white rounded-tr-none' : 'glass border-2 border-white/10 text-slate-100 rounded-tl-none'}`}>
                             {msg.content}
                           </div>
                         </motion.div>
@@ -707,7 +707,7 @@ export default function RAGMasterclass() {
                       value={chatInput}
                       onChange={(e) => setChatInput(e.target.value)}
                       placeholder="Type your question..."
-                      className="w-full bg-white/5 border-2 border-white/10 rounded-[1.2rem] px-6 py-5 text-xl lg:text-2xl font-bold focus:outline-none focus:border-sky-500 transition-all placeholder:text-slate-600"
+                      className="w-full bg-white/5 border-3 border-white/10 rounded-[1.5rem] px-8 py-6 text-2xl lg:text-3xl font-bold focus:outline-none focus:border-sky-500 transition-all placeholder:text-slate-600"
                     />
                     <button 
                       type="submit"
