@@ -626,12 +626,18 @@ export default function RAGMasterclass() {
                      
                      {/* Tech Accents - Using Translated Content */}
                      <div className="mt-12 lg:mt-20 grid grid-cols-1 sm:grid-cols-2 gap-6 lg:gap-8 border-t border-white/10 pt-10">
-                        {(translatedContent.length > 0 ? translatedContent : slides[currentSlide].content).map((item, idx) => (
+                        {(translatedContent.length > 0 ? translatedContent : slides[currentSlide].content).map((item: any, idx) => {
+                          const displayString = typeof item === 'object' && item !== null 
+                            ? (item.translatedPoint || item.point || item.text || item.content || "Processing...") 
+                            : String(item);
+                          
+                          return (
                           <div key={idx} className="flex items-start gap-4 group">
                              <div className="w-3 h-3 bg-sky-500 rounded-full mt-2 shrink-0 shadow-[0_0_10px_rgba(14,165,233,1)] group-hover:scale-125 transition-transform" />
-                             <span className="text-lg lg:text-xl font-bold text-slate-400 uppercase tracking-tight group-hover:text-white transition-colors">{item}</span>
+                             <span className="text-lg lg:text-xl font-bold text-slate-400 uppercase tracking-tight group-hover:text-white transition-colors">{displayString}</span>
                           </div>
-                        ))}
+                          );
+                        })}
                      </div>
                    </motion.div>
                 </div>
