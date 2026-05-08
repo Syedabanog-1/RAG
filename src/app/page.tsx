@@ -306,42 +306,43 @@ export default function RAGMasterclass() {
         />
       </div>
 
-      <nav className="h-28 lg:h-36 px-8 lg:px-20 flex justify-between items-center bg-black/40 backdrop-blur-2xl border-b border-white/10 relative z-50">
-        <div className="flex items-center gap-8 lg:gap-12">
+      <nav className="h-20 lg:h-36 px-4 sm:px-8 lg:px-20 flex justify-between items-center bg-black/40 backdrop-blur-2xl border-b border-white/10 relative z-50">
+        <div className="flex items-center gap-4 lg:gap-12">
           <motion.div 
             whileHover={{ scale: 1.1, rotate: 5 }}
-            className="w-16 h-16 lg:w-20 lg:h-20 bg-sky-500 rounded-[2rem] flex items-center justify-center shadow-[0_0_50px_rgba(14,165,233,0.5)] cursor-pointer"
+            className="w-10 h-10 sm:w-16 sm:h-16 lg:w-20 lg:h-20 bg-sky-500 rounded-xl sm:rounded-[2rem] flex items-center justify-center shadow-[0_0_30px_rgba(14,165,233,0.3)] cursor-pointer"
           >
-             <Cpu className="w-10 h-10 lg:w-12 lg:h-12 text-white" />
+             <Cpu className="w-6 h-6 sm:w-10 sm:h-10 lg:w-12 lg:h-12 text-white" />
           </motion.div>
           <div>
-            <h1 className="text-4xl lg:text-6xl font-black uppercase tracking-tighter leading-none">RAG <span className="text-sky-400">MASTERY</span></h1>
-            <p className="text-sm lg:text-lg text-slate-400 font-bold tracking-[0.4em] mt-2 uppercase">AI EDUCATION</p>
+            <h1 className="text-xl sm:text-4xl lg:text-6xl font-black uppercase tracking-tighter leading-none">RAG <span className="text-sky-400">MASTERY</span></h1>
+            <p className="text-[10px] sm:text-sm lg:text-lg text-slate-400 font-bold tracking-[0.2em] sm:tracking-[0.4em] mt-1 lg:mt-2 uppercase">AI EDUCATION</p>
           </div>
         </div>
 
-        <div className="flex items-center gap-10 lg:gap-16">
-          <div className="hidden md:flex items-center gap-6 bg-white/5 border border-white/10 px-8 py-4 rounded-[2rem]">
-            <span className="text-lg font-black text-slate-500 uppercase tracking-widest">SLIDE</span>
-            <span className="text-3xl lg:text-4xl font-black text-sky-400">{currentSlide + 1}<span className="text-slate-700 mx-2">/</span>{slides.length}</span>
+        <div className="flex items-center gap-3 sm:gap-10 lg:gap-16">
+          <div className="hidden sm:flex items-center gap-3 sm:gap-6 bg-white/5 border border-white/10 px-4 sm:px-8 py-2 sm:py-4 rounded-xl sm:rounded-[2rem]">
+            <span className="text-xs sm:text-lg font-black text-slate-500 uppercase tracking-widest">SLIDE</span>
+            <span className="text-xl sm:text-3xl lg:text-4xl font-black text-sky-400">{currentSlide + 1}<span className="text-slate-700 mx-1 sm:mx-2">/</span>{slides.length}</span>
           </div>
 
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-3 sm:gap-6">
             <button 
               onClick={() => setShowTopics(true)}
-              className="p-6 lg:p-8 glass border border-white/10 rounded-[2rem] hover:bg-sky-600 transition-all group"
+              className="p-3 sm:p-6 lg:p-8 glass border border-white/10 rounded-xl sm:rounded-[2rem] hover:bg-sky-600 transition-all group"
             >
-              <BookOpen className="w-8 h-8 lg:w-10 lg:h-10 text-white group-hover:scale-110 transition-transform" />
+              <BookOpen className="w-5 h-5 sm:w-8 sm:h-8 lg:w-10 lg:h-10 text-white group-hover:scale-110 transition-transform" />
             </button>
 
             {/* Language Selector */}
             <div className="relative">
               <button 
                 onClick={() => setShowSettings(!showSettings)}
-                className="flex items-center gap-4 px-10 py-6 lg:px-14 lg:py-8 glass border-2 border-white/10 rounded-[2.5rem] hover:border-sky-500/50 transition-all font-black uppercase text-xl lg:text-2xl"
+                className="flex items-center gap-2 sm:gap-4 px-4 py-3 sm:px-10 sm:py-6 lg:px-14 lg:py-8 glass border-2 border-white/10 rounded-xl sm:rounded-[2.5rem] hover:border-sky-500/50 transition-all font-black uppercase text-xs sm:text-xl lg:text-2xl"
               >
-                <Globe className="w-8 h-8 lg:w-10 lg:h-10 text-sky-400" />
-                {selectedLang.name}
+                <Globe className="w-4 h-4 sm:w-8 sm:h-8 lg:w-10 lg:h-10 text-sky-400" />
+                <span className="hidden xs:inline">{selectedLang.name}</span>
+                <span className="xs:hidden">{selectedLang.code.split('-')[0].toUpperCase()}</span>
               </button>
               
               <AnimatePresence>
@@ -381,59 +382,59 @@ export default function RAGMasterclass() {
             className="w-full grid lg:grid-cols-2 gap-16 lg:gap-32 items-center"
           >
             {/* Left: Text Content */}
-            <div className="space-y-12 lg:space-y-20">
-              <div className="space-y-6 lg:space-y-10">
+            <div className="space-y-8 lg:space-y-20">
+              <div className="space-y-4 lg:space-y-10 text-center lg:text-left">
                 <motion.div 
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="inline-block px-8 py-3 lg:px-10 lg:py-4 bg-sky-600/20 border-2 border-sky-500/30 rounded-full"
+                  className="inline-block px-4 py-2 lg:px-10 lg:py-4 bg-sky-600/20 border-2 border-sky-500/30 rounded-full"
                 >
-                  <span className="text-sky-400 font-black text-lg lg:text-2xl uppercase tracking-[0.3em]">
+                  <span className="text-sky-400 font-black text-xs sm:text-lg lg:text-2xl uppercase tracking-[0.2em] sm:tracking-[0.3em]">
                     {slide.subtitle || "Mastering RAG Technology"}
                   </span>
                 </motion.div>
                 
-                <h2 className="text-5xl md:text-6xl lg:text-7xl xl:text-[6.5rem] font-black leading-[1.1] lg:leading-[1] uppercase tracking-tight">
+                <h2 className="text-4xl sm:text-6xl lg:text-7xl xl:text-[6.5rem] font-black leading-[1.1] lg:leading-[1] uppercase tracking-tight">
                   {slide.title.split(' ').map((word, i) => (
                     <span key={i} className={i % 2 !== 0 ? "text-sky-400" : ""}>{word} </span>
                   ))}
                 </h2>
               </div>
 
-              <div className="space-y-6 lg:space-y-8">
+              <div className="space-y-4 lg:space-y-8">
                 {slide.content.map((item, i) => (
                   <motion.div 
                     key={i}
                     initial={{ opacity: 0, x: -30 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.5 + (i * 0.1) }}
-                    className="flex items-start gap-8 group"
+                    className="flex items-start gap-4 sm:gap-8 group"
                   >
-                    <div className="mt-3 w-5 h-5 lg:w-7 lg:h-7 bg-sky-500 rounded-full shadow-[0_0_30px_rgba(14,165,233,1)] flex-shrink-0" />
-                    <span className="text-3xl lg:text-4xl font-bold text-slate-200 group-hover:text-white leading-tight">{item}</span>
+                    <div className="mt-2 sm:mt-3 w-3 h-3 sm:w-5 sm:h-5 lg:w-7 lg:h-7 bg-sky-500 rounded-full shadow-[0_0_20px_rgba(14,165,233,1)] flex-shrink-0" />
+                    <span className="text-lg sm:text-3xl lg:text-4xl font-bold text-slate-200 group-hover:text-white leading-tight">{item}</span>
                   </motion.div>
                 ))}
               </div>
 
               {/* Action Buttons - Always Visible side-by-side */}
-              <div className="flex flex-row items-center gap-6 lg:gap-10 pt-8 lg:pt-10">
+              <div className="flex flex-row items-center justify-center lg:justify-start gap-4 sm:gap-10 pt-4 lg:pt-10">
                 <button 
                   onClick={() => {
                     setShowMovie(true);
                     speak(slide, true);
                   }}
-                  className={`group flex items-center justify-center w-20 h-20 lg:w-28 lg:h-28 rounded-3xl font-black transition-all shadow-3xl ${isSpeaking ? 'bg-rose-600' : 'bg-gradient-to-br from-sky-500 to-blue-700 hover:scale-105 active:scale-95 shadow-sky-600/40'}`}
+                  className={`group flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 lg:w-28 lg:h-28 rounded-2xl sm:rounded-3xl font-black transition-all shadow-xl sm:shadow-3xl ${isSpeaking ? 'bg-rose-600' : 'bg-gradient-to-br from-sky-500 to-blue-700 hover:scale-105 active:scale-95 shadow-sky-600/40'}`}
                   title="Voice Explanation"
                 >
-                  {isGenerating ? <Zap className="w-8 h-8 lg:w-12 lg:h-12 animate-spin" /> : isSpeaking ? <Pause className="w-8 h-8 lg:w-12 lg:h-12" /> : <Volume2 className="w-8 h-8 lg:w-12 lg:h-12" />}
+                  {isGenerating ? <Zap className="w-6 h-6 sm:w-8 sm:h-8 lg:w-12 lg:h-12 animate-spin" /> : isSpeaking ? <Pause className="w-6 h-6 sm:w-8 sm:h-8 lg:w-12 lg:h-12" /> : <Volume2 className="w-6 h-6 sm:w-8 sm:h-8 lg:w-12 lg:h-12" />}
                 </button>
 
                 <button 
                   onClick={startMovie}
-                  className="flex items-center justify-center w-20 h-20 lg:w-28 lg:h-28 rounded-3xl border-3 border-white/10 glass hover:bg-white/10 transition-all group"
+                  className="flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 lg:w-28 lg:h-28 rounded-2xl sm:rounded-3xl border-2 sm:border-3 border-white/10 glass hover:bg-white/10 transition-all group"
                   title="Watch Video"
                 >
-                  <Youtube className="w-8 h-8 lg:w-14 lg:h-14 text-sky-400 group-hover:scale-110 transition-transform" />
+                  <Youtube className="w-8 h-8 sm:w-10 sm:h-10 lg:w-14 lg:h-14 text-sky-400 group-hover:scale-110 transition-transform" />
                 </button>
               </div>
             </div>
@@ -464,36 +465,36 @@ export default function RAGMasterclass() {
       </div>
 
       {/* Footer Navigation */}
-      <footer className="h-40 px-8 lg:px-20 flex items-center justify-between bg-black/60 border-t border-white/10 backdrop-blur-3xl relative z-50">
-        <div className="flex items-center gap-10">
+      <footer className="h-28 lg:h-40 px-4 sm:px-8 lg:px-20 flex items-center justify-between bg-black/60 border-t border-white/10 backdrop-blur-3xl relative z-50">
+        <div className="flex items-center gap-4 sm:gap-10">
           <button 
             onClick={prevSlide}
-            className="w-24 h-24 lg:w-28 lg:h-28 rounded-[2.5rem] border-4 border-white/10 glass flex items-center justify-center hover:bg-sky-600 hover:border-sky-500 transition-all group"
+            className="w-16 h-16 sm:w-24 sm:h-24 lg:w-28 lg:h-28 rounded-2xl sm:rounded-[2.5rem] border-2 sm:border-4 border-white/10 glass flex items-center justify-center hover:bg-sky-600 hover:border-sky-500 transition-all group"
           >
-            <ChevronLeft className="w-12 h-12 lg:w-16 lg:h-16 group-hover:scale-125 transition-transform" />
+            <ChevronLeft className="w-8 h-8 sm:w-12 sm:h-12 lg:w-16 lg:h-16 group-hover:scale-125 transition-transform" />
           </button>
           <button 
             onClick={nextSlide}
-            className="w-24 h-24 lg:w-28 lg:h-28 rounded-[2.5rem] border-4 border-white/10 glass flex items-center justify-center hover:bg-sky-600 hover:border-sky-500 transition-all group"
+            className="w-16 h-16 sm:w-24 sm:h-24 lg:w-28 lg:h-28 rounded-2xl sm:rounded-[2.5rem] border-2 sm:border-4 border-white/10 glass flex items-center justify-center hover:bg-sky-600 hover:border-sky-500 transition-all group"
           >
-            <ChevronRight className="w-12 h-12 lg:w-16 lg:h-16 group-hover:scale-125 transition-transform" />
+            <ChevronRight className="w-8 h-8 sm:w-12 sm:h-12 lg:w-16 lg:h-16 group-hover:scale-125 transition-transform" />
           </button>
         </div>
 
         {/* Progress Bar */}
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-2 sm:gap-6">
           {slides.map((_, i) => (
             <button
               key={i}
               onClick={() => setCurrentSlide(i)}
-              className={`h-4 transition-all duration-700 rounded-full ${i === currentSlide ? 'w-32 lg:w-48 bg-sky-400 shadow-[0_0_20px_rgba(14,165,233,1)]' : 'w-6 bg-white/10 hover:bg-white/40'}`}
+              className={`h-2 sm:h-4 transition-all duration-700 rounded-full ${i === currentSlide ? 'w-10 sm:w-32 lg:w-48 bg-sky-400 shadow-[0_0_15px_rgba(14,165,233,1)]' : 'w-2 sm:w-6 bg-white/10 hover:bg-white/40'}`}
             />
           ))}
         </div>
 
-        <div className="text-right hidden sm:block">
-          <p className="text-2xl font-black text-slate-500 uppercase tracking-[0.4em]">Syeda Gulzar Bano</p>
-          <p className="text-lg text-sky-400 font-bold uppercase tracking-[0.3em] mt-2">RAG Expert 2026</p>
+        <div className="text-right hidden lg:block">
+          <p className="text-xl sm:text-2xl font-black text-slate-500 uppercase tracking-[0.4em]">Syeda Gulzar Bano</p>
+          <p className="text-base sm:text-lg text-sky-400 font-bold uppercase tracking-[0.3em] mt-1 lg:mt-2">RAG Expert 2026</p>
         </div>
       </footer>
 
@@ -651,13 +652,13 @@ export default function RAGMasterclass() {
               <div className="w-full lg:w-[45%] glass-dark backdrop-blur-3xl flex flex-col relative h-[70vh] lg:h-full border-t lg:border-t-0 lg:border-l border-white/10 overflow-hidden">
                 
                 {/* Header/Explanation Section (Fixed at Top) */}
-                <div className="p-6 lg:p-10 border-b border-white/10 bg-white/5 flex-none space-y-6">
-                  <div className="flex justify-center">
+                <div className="p-4 sm:p-6 lg:p-10 border-b border-white/10 bg-white/5 flex-none space-y-4 lg:space-y-6">
+                  <div className="flex justify-center scale-75 sm:scale-100">
                     <RobotAvatar isSpeaking={isSpeaking} size="small" />
                   </div>
-                  <div className="space-y-4">
-                    <p className="text-sky-500 font-black text-2xl uppercase tracking-[0.3em]">Live Explanation</p>
-                    <p className="text-2xl sm:text-3xl font-bold leading-relaxed text-slate-100">
+                  <div className="space-y-2 lg:space-y-4 text-center lg:text-left">
+                    <p className="text-sky-500 font-black text-lg sm:text-2xl uppercase tracking-[0.3em]">Live Explanation</p>
+                    <p className="text-lg sm:text-2xl lg:text-3xl font-bold leading-relaxed text-slate-100">
                       {isGenerating ? "AI is generating explanation..." : currentExplanation || slide.explanation}
                     </p>
                   </div>
@@ -700,21 +701,21 @@ export default function RAGMasterclass() {
                 </div>
 
                 {/* Chat Input Area (Fixed at Bottom) */}
-                <div className="p-6 lg:p-10 border-t border-white/10 bg-black/80 backdrop-blur-3xl flex-none">
-                  <form onSubmit={handleSendMessage} className="relative flex items-center gap-4">
+                <div className="p-4 sm:p-6 lg:p-10 border-t border-white/10 bg-black/80 backdrop-blur-3xl flex-none">
+                  <form onSubmit={handleSendMessage} className="relative flex items-center gap-2 sm:gap-4">
                     <input 
                       type="text"
                       value={chatInput}
                       onChange={(e) => setChatInput(e.target.value)}
                       placeholder="Type your question..."
-                      className="w-full bg-white/5 border-3 border-white/10 rounded-[1.5rem] px-8 py-6 text-2xl lg:text-3xl font-bold focus:outline-none focus:border-sky-500 transition-all placeholder:text-slate-600"
+                      className="w-full bg-white/5 border-2 sm:border-3 border-white/10 rounded-xl sm:rounded-[1.5rem] px-4 py-3 sm:px-8 sm:py-6 text-lg sm:text-2xl lg:text-3xl font-bold focus:outline-none focus:border-sky-500 transition-all placeholder:text-slate-600"
                     />
                     <button 
                       type="submit"
                       disabled={isChatLoading || !chatInput.trim()}
-                      className="absolute right-4 p-4 bg-sky-500 rounded-2xl hover:scale-110 active:scale-95 transition-all disabled:opacity-50 shadow-lg shadow-sky-500/40"
+                      className="p-3 sm:p-4 bg-sky-500 rounded-lg sm:rounded-2xl hover:scale-110 active:scale-95 transition-all disabled:opacity-50 shadow-lg shadow-sky-500/40"
                     >
-                      <Zap className={`w-10 h-10 text-white ${isChatLoading ? 'animate-spin' : ''}`} />
+                      <Zap className={`w-6 h-6 sm:w-10 sm:h-10 text-white ${isChatLoading ? 'animate-spin' : ''}`} />
                     </button>
                   </form>
                 </div>
