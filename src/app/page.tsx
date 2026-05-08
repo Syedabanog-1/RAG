@@ -306,7 +306,7 @@ export default function RAGMasterclass() {
         />
       </div>
 
-      <nav className="h-16 lg:h-28 px-4 sm:px-8 lg:px-20 flex justify-between items-center bg-black/40 backdrop-blur-2xl border-b border-white/10 relative z-50 shrink-0">
+      <nav className="h-16 lg:h-24 px-4 sm:px-8 lg:px-16 flex justify-between items-center bg-black/40 backdrop-blur-2xl border-b border-white/10 relative z-50 shrink-0">
         <div className="flex items-center gap-4 lg:gap-12">
           <motion.div 
             whileHover={{ scale: 1.1, rotate: 5 }}
@@ -379,7 +379,7 @@ export default function RAGMasterclass() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -50 }}
             transition={{ duration: 0.6, ease: "anticipate" }}
-            className="w-full grid lg:grid-cols-2 gap-16 lg:gap-32 items-center"
+            className="w-full h-full grid lg:grid-cols-2 gap-8 lg:gap-20 items-center"
           >
             {/* Left: Text Content */}
             <div className="space-y-8 lg:space-y-20">
@@ -394,54 +394,54 @@ export default function RAGMasterclass() {
                   </span>
                 </motion.div>
                 
-                <h2 className="text-4xl sm:text-5xl lg:text-6xl xl:text-8xl font-black leading-[1.1] lg:leading-[1] uppercase tracking-tight">
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl xl:text-7xl font-black leading-[1.1] lg:leading-[1] uppercase tracking-tight">
                   {slide.title.split(' ').map((word, i) => (
                     <span key={i} className={i % 2 !== 0 ? "text-sky-400" : ""}>{word} </span>
                   ))}
                 </h2>
               </div>
 
-              <div className="space-y-3 lg:space-y-6">
+              <div className="space-y-2 lg:space-y-4">
                 {slide.content.map((item, i) => (
                   <motion.div 
                     key={i}
                     initial={{ opacity: 0, x: -30 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.5 + (i * 0.1) }}
-                    className="flex items-start gap-4 sm:gap-6 group"
+                    className="flex items-start gap-3 sm:gap-4 group"
                   >
-                    <div className="mt-2 sm:mt-2 w-3 h-3 sm:w-4 sm:h-4 lg:w-5 lg:h-5 bg-sky-500 rounded-full shadow-[0_0_20px_rgba(14,165,233,1)] flex-shrink-0" />
-                    <span className="text-lg sm:text-2xl lg:text-3xl font-bold text-slate-200 group-hover:text-white leading-tight">{item}</span>
+                    <div className="mt-1.5 sm:mt-2 w-2.5 h-2.5 sm:w-3 sm:h-3 lg:w-4 lg:h-4 bg-sky-500 rounded-full shadow-[0_0_15px_rgba(14,165,233,1)] flex-shrink-0" />
+                    <span className="text-base sm:text-xl lg:text-2xl font-bold text-slate-200 group-hover:text-white leading-tight">{item}</span>
                   </motion.div>
                 ))}
               </div>
 
               {/* Action Buttons - Always Visible side-by-side */}
-              <div className="flex flex-row items-center justify-center lg:justify-start gap-4 sm:gap-8 pt-4 lg:pt-6">
+              <div className="flex flex-row items-center justify-center lg:justify-start gap-4 sm:gap-6 pt-2 lg:pt-4">
                 <button 
                   onClick={() => {
                     speak(slide, false);
                   }}
-                  className={`group flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 lg:w-24 lg:h-24 rounded-2xl sm:rounded-3xl font-black transition-all shadow-xl sm:shadow-3xl ${isSpeaking ? 'bg-rose-600' : 'bg-gradient-to-br from-sky-500 to-blue-700 hover:scale-105 active:scale-95 shadow-sky-600/40'}`}
+                  className={`group flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 rounded-xl sm:rounded-2xl font-black transition-all shadow-xl sm:shadow-3xl ${isSpeaking ? 'bg-rose-600' : 'bg-gradient-to-br from-sky-500 to-blue-700 hover:scale-105 active:scale-95 shadow-sky-600/40'}`}
                   title="Voice Explanation"
                 >
-                  {isGenerating ? <Zap className="w-6 h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10 animate-spin" /> : isSpeaking ? <Pause className="w-6 h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10" /> : <Volume2 className="w-6 h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10" />}
+                  {isGenerating ? <Zap className="w-5 h-5 sm:w-8 sm:h-8 lg:w-8 lg:h-8 animate-spin" /> : isSpeaking ? <Pause className="w-5 h-5 sm:w-8 sm:h-8 lg:w-8 lg:h-8" /> : <Volume2 className="w-5 h-5 sm:w-8 sm:h-8 lg:w-8 lg:h-8" />}
                 </button>
 
                 <button 
                   onClick={startMovie}
-                  className="flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 lg:w-24 lg:h-24 rounded-2xl sm:rounded-3xl border-2 sm:border-3 border-white/10 glass hover:bg-white/10 transition-all group"
+                  className="flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 rounded-xl sm:rounded-2xl border-2 sm:border-3 border-white/10 glass hover:bg-white/10 transition-all group"
                   title="Watch Video"
                 >
-                  <Youtube className="w-6 h-6 sm:w-10 sm:h-10 lg:w-12 lg:h-12 text-sky-400 group-hover:scale-110 transition-transform" />
+                  <Youtube className="w-5 h-5 sm:w-8 sm:h-8 lg:w-10 lg:h-10 text-sky-400 group-hover:scale-110 transition-transform" />
                 </button>
               </div>
             </div>
 
             {/* Right: Visual Content */}
-            <div className="relative group hidden lg:block">
+            <div className="relative group hidden lg:block max-h-[60vh] flex items-center justify-center">
               <motion.div 
-                className="relative z-10 rounded-[5rem] overflow-hidden border-[12px] border-white/5 shadow-[0_0_100px_rgba(0,0,0,0.8)] aspect-[4/3]"
+                className="relative z-10 rounded-[3rem] overflow-hidden border-8 border-white/5 shadow-[0_0_80px_rgba(0,0,0,0.8)] aspect-square lg:max-h-[50vh]"
               >
                 <img 
                   src={slide.imageUrl} 
@@ -464,7 +464,7 @@ export default function RAGMasterclass() {
       </div>
 
       {/* Footer Navigation */}
-      <footer className="h-20 lg:h-32 px-4 sm:px-8 lg:px-20 flex items-center justify-between bg-black/60 border-t border-white/10 backdrop-blur-3xl relative z-50 shrink-0">
+      <footer className="h-16 lg:h-24 px-4 sm:px-8 lg:px-16 flex items-center justify-between bg-black/60 border-t border-white/10 backdrop-blur-3xl relative z-50 shrink-0">
         <div className="flex items-center gap-4 sm:gap-10">
           <button 
             onClick={prevSlide}
