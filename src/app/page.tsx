@@ -121,6 +121,8 @@ export default function RAGMasterclass() {
   const [isChatLoading, setIsChatLoading] = useState(false);
   const chatEndRef = React.useRef<HTMLDivElement>(null);
 
+  const slide = slides[currentSlide];
+
   const scrollToBottom = () => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
@@ -286,8 +288,6 @@ export default function RAGMasterclass() {
   };
 
   if (!mounted) return <div className="min-h-screen bg-[#020617]" />;
-
-  const slide = slides[currentSlide];
 
   return (
     <main className="min-h-screen w-full bg-[#020617] text-white overflow-x-hidden flex flex-col font-sans selection:bg-sky-500">
