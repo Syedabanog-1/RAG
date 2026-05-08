@@ -267,10 +267,10 @@ export default function RAGMasterclass() {
     setTranslatedContent([]); // Reset translations
     setChatMessages([]); // Reset chat for new slide
     
-    // 2-second cinematic delay before starting narration
+    // 1-second cinematic delay for perfect synchronization
     setTimeout(() => {
       speak(slides[currentSlide], true);
-    }, 2000);
+    }, 1000);
   };
 
   const nextSlide = () => {
@@ -292,7 +292,7 @@ export default function RAGMasterclass() {
   const slide = slides[currentSlide];
 
   return (
-    <main className="h-screen w-full bg-[#020617] text-white overflow-hidden flex flex-col font-sans selection:bg-sky-500">
+    <main className="min-h-screen w-full bg-[#020617] text-white overflow-x-hidden flex flex-col font-sans selection:bg-sky-500">
       {/* Background Orbs & Grid */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute inset-0 bg-[linear-gradient(rgba(14,165,233,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(14,165,233,0.03)_1px,transparent_1px)] bg-[size:60px_60px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,#000_70%,transparent_100%)]" />
@@ -372,7 +372,7 @@ export default function RAGMasterclass() {
       </nav>
 
       {/* Main Content Area */}
-      <div className="flex-grow flex items-center px-10 lg:px-32 py-10 relative overflow-y-auto lg:overflow-hidden">
+      <div className="flex-grow flex items-center px-6 lg:px-32 py-8 lg:py-10 relative">
         <AnimatePresence mode="wait">
           <motion.div 
             key={currentSlide}
@@ -417,25 +417,25 @@ export default function RAGMasterclass() {
                 ))}
               </div>
 
-              {/* Action Buttons */}
-              <div className="flex flex-col sm:flex-row gap-8 lg:gap-12 pt-10">
+              {/* Action Buttons - Always Visible side-by-side */}
+              <div className="flex flex-row items-center gap-6 lg:gap-10 pt-8 lg:pt-10">
                 <button 
                   onClick={() => {
                     setShowMovie(true);
                     speak(slide, true);
                   }}
-                  className={`group flex items-center justify-center w-24 h-24 lg:w-32 lg:h-32 rounded-[2.5rem] lg:rounded-[3rem] font-black transition-all shadow-3xl ${isSpeaking ? 'bg-rose-600 text-white' : 'bg-gradient-to-br from-sky-500 to-blue-700 text-white hover:scale-105 active:scale-95 shadow-sky-600/40'}`}
+                  className={`group flex items-center justify-center w-20 h-20 lg:w-28 lg:h-28 rounded-3xl font-black transition-all shadow-3xl ${isSpeaking ? 'bg-rose-600' : 'bg-gradient-to-br from-sky-500 to-blue-700 hover:scale-105 active:scale-95 shadow-sky-600/40'}`}
                   title="Voice Explanation"
                 >
-                  {isGenerating ? <Zap className="w-10 h-10 lg:w-14 lg:h-14 animate-spin" /> : isSpeaking ? <Pause className="w-10 h-10 lg:w-14 lg:h-14" /> : <Volume2 className="w-10 h-10 lg:w-14 lg:h-14" />}
+                  {isGenerating ? <Zap className="w-8 h-8 lg:w-12 lg:h-12 animate-spin" /> : isSpeaking ? <Pause className="w-8 h-8 lg:w-12 lg:h-12" /> : <Volume2 className="w-8 h-8 lg:w-12 lg:h-12" />}
                 </button>
 
                 <button 
                   onClick={startMovie}
-                  className="flex items-center justify-center w-24 h-24 lg:w-32 lg:h-32 rounded-[2.5rem] lg:rounded-[3rem] border-4 border-white/10 glass hover:bg-white/10 transition-all group"
+                  className="flex items-center justify-center w-20 h-20 lg:w-28 lg:h-28 rounded-3xl border-3 border-white/10 glass hover:bg-white/10 transition-all group"
                   title="Watch Video"
                 >
-                  <Youtube className="w-10 h-10 lg:w-16 lg:h-16 text-sky-400 group-hover:scale-125 transition-transform" />
+                  <Youtube className="w-8 h-8 lg:w-14 lg:h-14 text-sky-400 group-hover:scale-110 transition-transform" />
                 </button>
               </div>
             </div>
