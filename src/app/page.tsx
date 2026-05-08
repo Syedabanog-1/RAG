@@ -28,8 +28,19 @@ const languages = [
 ];
 
 const RobotAvatar = ({ isSpeaking, size = "small", color = "sky" }: { isSpeaking: boolean, size?: "small" | "large", color?: "sky" | "pink" }) => {
-  const accent = color === "pink" ? "pink" : "sky";
-  const glow = color === "pink" ? "rgba(219,39,119,0.4)" : "rgba(14,165,233,0.4)";
+  const isPink = color === "pink";
+  const shadowColor = isPink ? '#db2777' : '#38bdf8';
+  const mouthActiveColor = isPink ? '#f472b6' : '#7dd3fc';
+  
+  // Tailwind Purge-safe strings
+  const containerShadow = isPink ? "shadow-[0_0_50px_rgba(219,39,119,0.4)]" : "shadow-[0_0_50px_rgba(14,165,233,0.4)]";
+  const borderColor = isPink ? "border-pink-400/30" : "border-sky-400/30";
+  const borderBody = isPink ? "border-pink-400/20" : "border-sky-400/20";
+  const bgGradient = isPink ? "from-pink-500/20" : "from-sky-500/20";
+  const bgEye = isPink ? "bg-pink-600" : "bg-sky-600";
+  const bgMouth = isPink ? "bg-pink-400" : "bg-sky-400";
+  const bgBlur = isPink ? "bg-pink-500" : "bg-sky-500";
+  const mouthShadow = isPink ? "shadow-[0_0_15px_rgba(219,39,119,0.4)]" : "shadow-[0_0_15px_rgba(14,165,233,0.4)]";
   
   return (
   <div className={`relative flex flex-col items-center justify-center ${size === "small" ? "w-24 h-32" : "w-64 h-80"}`}>
@@ -39,9 +50,9 @@ const RobotAvatar = ({ isSpeaking, size = "small", color = "sky" }: { isSpeaking
         rotate: [0, 2, -2, 0]
       } : {}}
       transition={{ duration: 2, repeat: Infinity }}
-      className={`${size === "small" ? "w-24 h-24" : "w-48 h-48"} glass rounded-[3rem] relative border-${accent}-400/30 overflow-hidden z-10 shadow-[0_0_50px_${glow}]`}
+      className={`${size === "small" ? "w-24 h-24" : "w-48 h-48"} glass rounded-[3rem] relative ${borderColor} overflow-hidden z-10 ${containerShadow}`}
     >
-      <div className={`absolute inset-0 bg-gradient-to-b from-${accent}-500/20 to-transparent`} />
+      <div className={`absolute inset-0 bg-gradient-to-b ${bgGradient} to-transparent`} />
       {/* Eyes */}
       <div className="absolute top-[35%] left-0 w-full flex justify-around px-6">
         {[0, 1].map((i) => (
@@ -49,12 +60,12 @@ const RobotAvatar = ({ isSpeaking, size = "small", color = "sky" }: { isSpeaking
             key={i}
             animate={isSpeaking ? { 
               scaleY: [1, 0.1, 1],
-              boxShadow: [`0 0 10px ${color === 'pink' ? '#db2777' : '#38bdf8'}`, `0 0 20px ${color === 'pink' ? '#db2777' : '#38bdf8'}`, `0 0 10px ${color === 'pink' ? '#db2777' : '#38bdf8'}`]
+              boxShadow: [`0 0 10px ${shadowColor}`, `0 0 20px ${shadowColor}`, `0 0 10px ${shadowColor}`]
             } : {}}
             transition={{ duration: 0.15, repeat: isSpeaking ? Infinity : 0, repeatDelay: Math.random() * 3 + 2 }}
             className={`${size === "small" ? "w-4 h-4" : "w-8 h-8"} bg-white rounded-full flex items-center justify-center`}
           >
-            <div className={`${size === "small" ? "w-2 h-2" : "w-4 h-4"} bg-${accent}-600 rounded-full`} />
+            <div className={`${size === "small" ? "w-2 h-2" : "w-4 h-4"} ${bgEye} rounded-full`} />
           </motion.div>
         ))}
       </div>
@@ -64,20 +75,20 @@ const RobotAvatar = ({ isSpeaking, size = "small", color = "sky" }: { isSpeaking
           animate={isSpeaking ? { 
             height: [4, 12, 4], 
             width: [20, 40, 20],
-            backgroundColor: [color === 'pink' ? '#db2777' : '#38bdf8', color === 'pink' ? '#f472b6' : '#7dd3fc', color === 'pink' ? '#db2777' : '#38bdf8']
+            backgroundColor: [shadowColor, mouthActiveColor, shadowColor]
           } : { height: 4, width: 20 }}
           transition={{ duration: 0.2, repeat: Infinity }}
-          className={`bg-${accent}-400 rounded-full shadow-[0_0_15px_${glow}]`}
+          className={`${bgMouth} rounded-full ${mouthShadow}`}
         />
       </div>
     </motion.div>
     {/* Body Part */}
-    <div className={`${size === "small" ? "w-16 h-20" : "w-32 h-40"} glass rounded-t-none rounded-b-[5rem] -mt-12 border-${accent}-400/20 relative overflow-hidden`}>
+    <div className={`${size === "small" ? "w-16 h-20" : "w-32 h-40"} glass rounded-t-none rounded-b-[5rem] -mt-12 ${borderBody} relative overflow-hidden`}>
       <div className="absolute top-12 left-1/2 -translate-x-1/2">
         <motion.div 
           animate={isSpeaking ? { opacity: [0.4, 1, 0.4], scale: [1, 1.2, 1] } : { opacity: 0.4 }}
           transition={{ duration: 1, repeat: Infinity }}
-          className={`${size === "small" ? "w-8 h-8" : "w-16 h-16"} rounded-full bg-${accent}-500 blur-xl`} 
+          className={`${size === "small" ? "w-8 h-8" : "w-16 h-16"} rounded-full ${bgBlur} blur-xl`} 
         />
       </div>
     </div>
