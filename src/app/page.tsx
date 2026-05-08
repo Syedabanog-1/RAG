@@ -593,21 +593,26 @@ export default function RAGMasterclass() {
                 <div className="absolute inset-0 bg-[linear-gradient(rgba(14,165,233,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(14,165,233,0.05)_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)]" />
                 
                 <motion.div 
+                  initial={{ scale: 1, x: 0, y: 0 }}
                   animate={{ 
-                    scale: [1, 1.1, 1],
-                    x: [-10, 10, -10],
-                    y: [-5, 5, -5]
+                    scale: [1, 1.15, 1.05, 1.1, 1],
+                    x: [-20, 20, -10, 10, -20],
+                    y: [-10, 10, 10, -10, -10]
                   }}
-                  transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+                  transition={{ 
+                    duration: 25, 
+                    repeat: Infinity, 
+                    ease: "easeInOut" 
+                  }}
                   className="w-full h-full relative"
                 >
                   <img 
                     src={slide.imageUrl} 
-                    className="w-full h-full object-cover opacity-70 grayscale-[20%] brightness-110"
+                    className="w-full h-full object-cover opacity-60 grayscale-[10%] brightness-110 contrast-125"
                     alt="Movie Content"
                   />
                   {/* Digital Glitch/Scanline Overlay */}
-                  <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[size:100%_4px,3px_100%] pointer-events-none" />
+                  <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.1)_50%),linear-gradient(90deg,rgba(14,165,233,0.05),rgba(14,165,233,0.02),rgba(14,165,233,0.05))] bg-[size:100%_4px,3px_100%] pointer-events-none" />
                 </motion.div>
                 
                 {/* Dynamic HUD Overlays */}
@@ -635,15 +640,30 @@ export default function RAGMasterclass() {
                 </div>
 
                 {/* Animated Data Stream */}
-                <div className="absolute bottom-10 left-10 right-10 h-32 z-10 pointer-events-none flex items-end gap-2 px-10">
-                   {[...Array(40)].map((_, i) => (
+                <div className="absolute bottom-24 left-10 right-10 h-32 z-10 pointer-events-none flex items-end gap-2 px-10">
+                   {[...Array(30)].map((_, i) => (
                      <motion.div 
                        key={i}
                        animate={{ height: [10, Math.random() * 80 + 20, 10] }}
                        transition={{ duration: 1.5, repeat: Infinity, delay: i * 0.05 }}
-                       className="w-2 bg-sky-500/40 rounded-t-sm"
+                       className="w-1.5 bg-sky-500/30 rounded-t-sm"
                      />
                    ))}
+                </div>
+
+                {/* CINEMATIC SUBTITLES */}
+                <div className="absolute bottom-10 left-0 w-full flex justify-center z-50 px-20">
+                  <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    key={currentExplanation}
+                    className="bg-black/60 backdrop-blur-xl border border-white/10 px-10 py-6 rounded-3xl max-w-4xl text-center shadow-[0_0_50px_rgba(0,0,0,0.5)]"
+                  >
+                    <p className="text-xl font-black text-sky-400 uppercase tracking-[0.5em] mb-2">{selectedLang.name} SUBTITLES</p>
+                    <p className="text-3xl lg:text-4xl font-bold leading-snug text-white">
+                      {isGenerating ? "Translating..." : currentExplanation || slide.explanation}
+                    </p>
+                  </motion.div>
                 </div>
               </div>
 
