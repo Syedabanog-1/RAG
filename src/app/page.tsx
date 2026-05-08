@@ -223,9 +223,10 @@ export default function RAGMasterclass() {
     };
     
     window.speechSynthesis.cancel();
+    // 1-second cinematic delay as requested
     setTimeout(() => {
       window.speechSynthesis.speak(utterance);
-    }, 200);
+    }, 1000);
   };
 
   const handleSendMessage = async (e: React.FormEvent) => {
