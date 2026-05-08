@@ -202,7 +202,7 @@ export default function RAGMasterclass() {
     utterance.pitch = 1.1; 
     utterance.onend = () => {
       setIsSpeaking(false);
-      if (isMovie) setTimeout(() => setShowMovie(false), 1500);
+      // Auto-close removed as per user request
     };
     utterance.onstart = () => setIsSpeaking(true);
     utterance.onerror = (e) => {
@@ -419,7 +419,10 @@ export default function RAGMasterclass() {
               {/* Action Buttons */}
               <div className="flex flex-col sm:flex-row gap-8 lg:gap-12 pt-10">
                 <button 
-                  onClick={() => speak(slide)}
+                  onClick={() => {
+                    setShowMovie(true);
+                    speak(slide, true);
+                  }}
                   className={`group flex items-center justify-center w-24 h-24 lg:w-32 lg:h-32 rounded-[2.5rem] lg:rounded-[3rem] font-black transition-all shadow-3xl ${isSpeaking ? 'bg-rose-600 text-white' : 'bg-gradient-to-br from-sky-500 to-blue-700 text-white hover:scale-105 active:scale-95 shadow-sky-600/40'}`}
                   title="Voice Explanation"
                 >
@@ -653,8 +656,8 @@ export default function RAGMasterclass() {
                     <RobotAvatar isSpeaking={isSpeaking} size="small" />
                   </div>
                   <div className="space-y-3">
-                    <p className="text-sky-500 font-black text-xl uppercase tracking-[0.3em]">Live Explanation</p>
-                    <p className="text-lg sm:text-xl font-bold leading-relaxed text-slate-100">
+                    <p className="text-sky-500 font-black text-lg uppercase tracking-[0.3em]">Live Explanation</p>
+                    <p className="text-base sm:text-lg font-bold leading-relaxed text-slate-100">
                       {isGenerating ? "AI is generating explanation..." : currentExplanation || slide.explanation}
                     </p>
                   </div>
@@ -677,7 +680,7 @@ export default function RAGMasterclass() {
                           key={i} 
                           className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
                         >
-                          <div className={`max-w-[90%] px-6 py-4 rounded-[1.5rem] text-xl lg:text-2xl font-bold shadow-2xl ${msg.role === 'user' ? 'bg-sky-600 text-white rounded-tr-none' : 'glass border-2 border-white/10 text-slate-100 rounded-tl-none'}`}>
+                          <div className={`max-w-[90%] px-5 py-3 rounded-[1.2rem] text-base lg:text-lg font-bold shadow-2xl ${msg.role === 'user' ? 'bg-sky-600 text-white rounded-tr-none' : 'glass border-2 border-white/10 text-slate-100 rounded-tl-none'}`}>
                             {msg.content}
                           </div>
                         </motion.div>
@@ -704,7 +707,7 @@ export default function RAGMasterclass() {
                       value={chatInput}
                       onChange={(e) => setChatInput(e.target.value)}
                       placeholder="Type your question..."
-                      className="w-full bg-white/5 border-3 border-white/10 rounded-[1.5rem] px-6 py-5 text-xl lg:text-2xl font-bold focus:outline-none focus:border-sky-500 transition-all placeholder:text-slate-600"
+                      className="w-full bg-white/5 border-2 border-white/10 rounded-[1.2rem] px-5 py-4 text-base lg:text-lg font-bold focus:outline-none focus:border-sky-500 transition-all placeholder:text-slate-600"
                     />
                     <button 
                       type="submit"
