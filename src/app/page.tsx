@@ -119,6 +119,15 @@ export default function RAGMasterclass() {
   const [chatMessages, setChatMessages] = useState<{ role: 'user' | 'assistant', content: string }[]>([]);
   const [chatInput, setChatInput] = useState("");
   const [isChatLoading, setIsChatLoading] = useState(false);
+  const chatEndRef = React.useRef<HTMLDivElement>(null);
+
+  const scrollToBottom = () => {
+    chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    if (chatMessages.length > 0) scrollToBottom();
+  }, [chatMessages]);
 
   useEffect(() => {
     setMounted(true);
@@ -636,16 +645,16 @@ export default function RAGMasterclass() {
               </div>
 
                {/* Right Side: LIVE EXPLANATION & CHAT SIDEBAR */}
-              <div className="lg:w-1/3 glass-dark backdrop-blur-3xl flex flex-col relative min-h-[50vh] lg:min-h-0 border-l border-white/10">
-                <div className="p-8 lg:p-12 overflow-y-auto flex-grow space-y-12 custom-scrollbar">
-                  <div className="flex justify-center">
+              <div className="w-full lg:w-[40%] glass-dark backdrop-blur-3xl flex flex-col relative h-[60vh] lg:h-full border-t lg:border-t-0 lg:border-l border-white/10 overflow-hidden">
+                <div className="p-6 lg:p-10 overflow-y-auto flex-grow space-y-10 custom-scrollbar pb-32">
+                  <div className="flex justify-center pt-4">
                     <RobotAvatar isSpeaking={isSpeaking} size="large" />
                   </div>
 
-                  <div className="space-y-8">
-                    <div className="space-y-4">
-                      <p className="text-sky-500 font-black text-xl uppercase tracking-[0.3em]">Live Explanation</p>
-                      <div className="h-1.5 w-24 bg-sky-500 rounded-full shadow-[0_0_15px_rgba(14,165,233,0.5)]" />
+                  <div className="space-y-6">
+                    <div className="space-y-3">
+                      <p className="text-sky-500 font-black text-2xl uppercase tracking-[0.3em]">Live Explanation</p>
+                      <div className="h-2 w-32 bg-sky-500 rounded-full shadow-[0_0_15px_rgba(14,165,233,0.5)]" />
                     </div>
 
                     <motion.div 
@@ -654,60 +663,63 @@ export default function RAGMasterclass() {
                       key={currentExplanation}
                       className="relative"
                     >
-                      <p className="text-xl sm:text-2xl lg:text-3xl font-bold leading-relaxed text-slate-100 italic">
-                        {isGenerating ? "RAG Master-Class is starting..." : currentExplanation || slide.explanation}
+                      <p className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-relaxed text-slate-100">
+                        {isGenerating ? "AI is generating explanation..." : currentExplanation || slide.explanation}
                       </p>
                     </motion.div>
                   </div>
 
                   {/* Chat Messages Area */}
-                  <div className="space-y-6 pt-10 border-t border-white/10">
-                    <p className="text-sky-500 font-black text-xl uppercase tracking-[0.3em]">AI Assistant Chat</p>
-                    <div className="space-y-4">
+                  <div className="space-y-8 pt-10 border-t border-white/10">
+                    <p className="text-sky-500 font-black text-2xl uppercase tracking-[0.3em]">AI Tutor Chat</p>
+                    <div className="space-y-6">
                       {chatMessages.length === 0 && (
-                        <p className="text-slate-500 italic text-lg text-center py-4">Ask me anything about {slide.title}...</p>
+                        <div className="glass border border-white/10 p-8 rounded-[2rem] text-center">
+                           <p className="text-slate-400 italic text-2xl">Ask me anything about <span className="text-sky-400 font-black">{slide.title}</span>. I'm here to help!</p>
+                        </div>
                       )}
                       {chatMessages.map((msg, i) => (
                         <motion.div 
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
+                          initial={{ opacity: 0, scale: 0.9 }}
+                          animate={{ opacity: 1, scale: 1 }}
                           key={i} 
                           className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
                         >
-                          <div className={`max-w-[85%] px-6 py-4 rounded-2xl text-lg font-bold shadow-xl ${msg.role === 'user' ? 'bg-sky-600 text-white rounded-tr-none' : 'glass border border-white/10 text-slate-200 rounded-tl-none'}`}>
+                          <div className={`max-w-[90%] px-8 py-6 rounded-[2rem] text-2xl lg:text-3xl font-bold shadow-2xl ${msg.role === 'user' ? 'bg-gradient-to-r from-sky-600 to-blue-700 text-white rounded-tr-none' : 'glass border-2 border-white/10 text-slate-100 rounded-tl-none'}`}>
                             {msg.content}
                           </div>
                         </motion.div>
                       ))}
                       {isChatLoading && (
                         <div className="flex justify-start">
-                          <div className="glass border border-white/10 px-6 py-4 rounded-2xl rounded-tl-none flex gap-2 items-center">
-                            <div className="w-2 h-2 bg-sky-400 rounded-full animate-bounce" />
-                            <div className="w-2 h-2 bg-sky-400 rounded-full animate-bounce [animation-delay:0.2s]" />
-                            <div className="w-2 h-2 bg-sky-400 rounded-full animate-bounce [animation-delay:0.4s]" />
+                          <div className="glass border border-white/10 px-8 py-6 rounded-[2rem] rounded-tl-none flex gap-3 items-center">
+                            <div className="w-3 h-3 bg-sky-400 rounded-full animate-bounce" />
+                            <div className="w-3 h-3 bg-sky-400 rounded-full animate-bounce [animation-delay:0.2s]" />
+                            <div className="w-3 h-3 bg-sky-400 rounded-full animate-bounce [animation-delay:0.4s]" />
                           </div>
                         </div>
                       )}
+                      <div ref={chatEndRef} />
                     </div>
                   </div>
                 </div>
 
-                {/* Chat Input Area */}
-                <div className="p-8 border-t border-white/10 bg-black/40 backdrop-blur-xl">
+                {/* Chat Input Area - Fixed at Bottom */}
+                <div className="absolute bottom-0 left-0 right-0 p-6 lg:p-10 border-t border-white/10 bg-black/80 backdrop-blur-2xl z-20">
                   <form onSubmit={handleSendMessage} className="relative flex items-center gap-4">
                     <input 
                       type="text"
                       value={chatInput}
                       onChange={(e) => setChatInput(e.target.value)}
-                      placeholder="Ask a question..."
-                      className="w-full bg-white/5 border-2 border-white/10 rounded-2xl px-6 py-5 text-xl font-bold focus:outline-none focus:border-sky-500 transition-all placeholder:text-slate-600"
+                      placeholder="Type your question..."
+                      className="w-full bg-white/5 border-3 border-white/10 rounded-[2rem] px-8 py-6 text-2xl lg:text-3xl font-bold focus:outline-none focus:border-sky-500 transition-all placeholder:text-slate-600"
                     />
                     <button 
                       type="submit"
                       disabled={isChatLoading || !chatInput.trim()}
-                      className="absolute right-3 p-3 bg-sky-500 rounded-xl hover:scale-105 active:scale-95 transition-all disabled:opacity-50 disabled:scale-100"
+                      className="absolute right-4 p-4 bg-sky-500 rounded-2xl hover:scale-110 active:scale-95 transition-all disabled:opacity-50 disabled:scale-100 shadow-lg shadow-sky-500/40"
                     >
-                      <Zap className={`w-8 h-8 text-white ${isChatLoading ? 'animate-pulse' : ''}`} />
+                      <Zap className={`w-10 h-10 text-white ${isChatLoading ? 'animate-spin' : ''}`} />
                     </button>
                   </form>
                 </div>
