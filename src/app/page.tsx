@@ -307,17 +307,13 @@ export default function RAGMasterclass() {
       </div>
 
       <nav className="h-16 lg:h-24 px-4 sm:px-8 lg:px-16 flex justify-between items-center bg-black/40 backdrop-blur-2xl border-b border-white/10 relative z-50 shrink-0">
-        <div className="flex items-center gap-4 lg:gap-12">
+        <div className="flex items-center gap-4 lg:gap-10">
           <motion.div 
-            whileHover={{ scale: 1.1, rotate: 5 }}
-            className="w-10 h-10 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-sky-500 rounded-xl sm:rounded-2xl flex items-center justify-center shadow-[0_0_30px_rgba(14,165,233,0.3)] cursor-pointer"
+            whileHover={{ scale: 1.05 }}
+            className="cursor-pointer"
           >
-             <Cpu className="w-6 h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10 text-white" />
+             <img src="/logo.png" alt="Bano-Tech Logo" className="h-12 lg:h-20 w-auto rounded-xl lg:rounded-2xl shadow-[0_0_30px_rgba(14,165,233,0.3)]" />
           </motion.div>
-          <div>
-            <h1 className="text-xl sm:text-3xl lg:text-5xl font-black uppercase tracking-tighter leading-none">RAG <span className="text-sky-400">MASTERY</span></h1>
-            <p className="text-[10px] sm:text-xs lg:text-sm text-slate-400 font-bold tracking-[0.2em] sm:tracking-[0.4em] mt-1 uppercase">AI EDUCATION</p>
-          </div>
         </div>
 
         <div className="flex items-center gap-3 sm:gap-10 lg:gap-16">
