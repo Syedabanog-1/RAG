@@ -446,9 +446,9 @@ export default function RAGMasterclass() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
                 
-                <div className="absolute bottom-16 left-16 right-16 p-12 glass border-2 border-white/20 rounded-[3rem]">
-                  <p className="text-xl font-black text-sky-400 uppercase tracking-[0.5em] mb-4">Deep Learning Insight</p>
-                  <p className="text-4xl font-bold leading-tight">{slide.title}</p>
+                <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 p-4 sm:p-6 glass border border-white/20 rounded-2xl sm:rounded-3xl">
+                  <p className="text-[10px] sm:text-xs font-black text-sky-400 uppercase tracking-[0.3em] mb-1 sm:mb-2">Deep Learning Insight</p>
+                  <p className="text-lg sm:text-xl font-bold leading-tight">{slide.title}</p>
                 </div>
               </motion.div>
               
