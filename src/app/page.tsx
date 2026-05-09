@@ -290,7 +290,7 @@ export default function RAGMasterclass() {
   if (!mounted) return <div className="min-h-screen bg-[#020617]" />;
 
   return (
-    <main className="h-screen w-full bg-[#020617] text-white overflow-hidden flex flex-col font-sans selection:bg-sky-500 relative">
+    <main className="w-full bg-[#020617] text-white overflow-hidden flex flex-col font-sans selection:bg-sky-500 relative" style={{height: '100dvh'}}>
       {/* Background Orbs & Grid */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute inset-0 bg-[linear-gradient(rgba(14,165,233,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(14,165,233,0.03)_1px,transparent_1px)] bg-[size:60px_60px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,#000_70%,transparent_100%)]" />
@@ -375,39 +375,39 @@ export default function RAGMasterclass() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -50 }}
             transition={{ duration: 0.6, ease: "anticipate" }}
-            className="w-full h-full grid lg:grid-cols-2 gap-8 lg:gap-20 items-center"
+            className="w-full h-full grid lg:grid-cols-2 gap-4 lg:gap-16 items-center"
           >
             {/* Left: Text Content */}
             <div className="space-y-8 lg:space-y-20">
-              <div className="space-y-4 lg:space-y-10 text-center lg:text-left">
+              <div className="space-y-2 lg:space-y-6 text-center lg:text-left">
                 <motion.div 
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="inline-block px-4 py-2 lg:px-10 lg:py-4 bg-sky-600/20 border-2 border-sky-500/30 rounded-full"
+                  className="inline-block px-3 py-1 lg:px-8 lg:py-3 bg-sky-600/20 border border-sky-500/30 rounded-full"
                 >
-                  <span className="text-sky-400 font-black text-xs sm:text-lg lg:text-2xl uppercase tracking-[0.2em] sm:tracking-[0.3em]">
+                  <span className="text-sky-400 font-black uppercase tracking-widest" style={{fontSize: 'clamp(9px, 1.2vw, 18px)'}}>
                     {slide.subtitle || "Mastering RAG Technology"}
                   </span>
                 </motion.div>
                 
-                <h2 className="text-3xl sm:text-4xl lg:text-5xl xl:text-7xl font-black leading-[1.1] lg:leading-[1] uppercase tracking-tight">
+                <h2 className="font-black leading-tight uppercase tracking-tight" style={{fontSize: 'clamp(22px, 4.5vw, 80px)'}}>
                   {slide.title.split(' ').map((word, i) => (
                     <span key={i} className={i % 2 !== 0 ? "text-sky-400" : ""}>{word} </span>
                   ))}
                 </h2>
               </div>
 
-              <div className="space-y-2 lg:space-y-4">
+              <div className="space-y-1.5 lg:space-y-3">
                 {slide.content.map((item, i) => (
                   <motion.div 
                     key={i}
                     initial={{ opacity: 0, x: -30 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.5 + (i * 0.1) }}
-                    className="flex items-start gap-3 sm:gap-4 group"
+                    className="flex items-start gap-3 group"
                   >
-                    <div className="mt-1.5 sm:mt-2 w-2.5 h-2.5 sm:w-3 sm:h-3 lg:w-4 lg:h-4 bg-sky-500 rounded-full shadow-[0_0_15px_rgba(14,165,233,1)] flex-shrink-0" />
-                    <span className="text-base sm:text-xl lg:text-2xl font-bold text-slate-200 group-hover:text-white leading-tight">{item}</span>
+                    <div className="mt-1 w-2 h-2 lg:w-3 lg:h-3 bg-sky-500 rounded-full shadow-[0_0_10px_rgba(14,165,233,1)] flex-shrink-0" />
+                    <span className="font-semibold text-slate-200 group-hover:text-white leading-tight" style={{fontSize: 'clamp(13px, 1.5vw, 24px)'}}>{item}</span>
                   </motion.div>
                 ))}
               </div>

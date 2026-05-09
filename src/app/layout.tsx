@@ -9,6 +9,13 @@ export const metadata: Metadata = {
   description: "A comprehensive and dynamic presentation covering everything about RAG, from vector databases to generation.",
 };
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
