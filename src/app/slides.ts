@@ -22,7 +22,7 @@ export const slides: Slide[] = [
     explanation: "Retrieval-Augmented Generation, or RAG, is the revolutionary technique of providing Large Language Models with external, real-time data to improve accuracy and relevance. Instead of relying solely on pre-trained knowledge, the model acts like a researcher, looking up specific facts before generating an answer.",
     imagePrompt: "A high-tech cinematic visualization of a glowing brain connected to a vast network of floating data nodes and library archives, neon blue and purple highlights, futuristic aesthetic, 8k resolution.",
     visualType: 'hero',
-    imageUrl: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=1600",
+    imageUrl: "/logo.png",
     explainerImageUrl: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&q=80&w=1600"
   },
   {

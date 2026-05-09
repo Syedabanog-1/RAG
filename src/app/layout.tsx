@@ -5,8 +5,12 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "RAG Masterclass | The Future of Retrieval-Augmented Generation",
+  title: "Bano-Tech | RAG Masterclass",
   description: "A comprehensive and dynamic presentation covering everything about RAG, from vector databases to generation.",
+  icons: {
+    icon: "/logo.png",
+    apple: "/logo.png",
+  }
 };
 
 export default function RootLayout({
